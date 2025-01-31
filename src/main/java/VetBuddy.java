@@ -7,7 +7,7 @@ public class VetBuddy {
         String greetingMessage = " Hello! I'm VetBuddy";
         String actionPrompt = " What can I do for you?";
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         System.out.println(lineSeparator);
@@ -25,24 +25,39 @@ public class VetBuddy {
                 break;
             } else if (input.equalsIgnoreCase("list")) {
                 System.out.println(lineSeparator);
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                 }
                 System.out.println(lineSeparator);
+            } else if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (index >= 0 && index < taskCount) {
+                    tasks[index].markAsDone();
+                    System.out.println(lineSeparator);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[X] " + tasks[index].getDescription());
+                    System.out.println(lineSeparator);
+                }
+            } else if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (index >= 0 && index < taskCount) {
+                    tasks[index].markAsNotDone();
+                    System.out.println(lineSeparator);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("[ ] " + tasks[index].getDescription());
+                    System.out.println(lineSeparator);
+                }
             } else {
-                tasks[taskCount] = input;
+                tasks[taskCount] = new Task(input);
                 taskCount++;
                 System.out.println(lineSeparator);
                 System.out.println(" added: " + input);
                 System.out.println(lineSeparator);
             }
-
-
-            System.out.println(lineSeparator);
-            System.out.println(" " + input);
-            System.out.println(lineSeparator);
         }
-
         scanner.close();
     }
+
+
 }
