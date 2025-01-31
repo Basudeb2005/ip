@@ -1,16 +1,34 @@
+import java.util.Scanner;
+
 public class VetBuddy {
     public static void main(String[] args) {
-        String lineSeparator = "____________________________________________________________\n";
-        String greetingMessage = " Hello! I'm VetBuddy\n";
-        String actionPrompt = " What can I do for you?\n";
-        String farewellMessage = " Bye. Hope to see you again soon!\n";
+        Scanner scanner = new Scanner(System.in);
+        String lineSeparator = "____________________________________________________________";
+        String greetingMessage = " Hello! I'm VetBuddy";
+        String actionPrompt = " What can I do for you?";
 
-        System.out.print(lineSeparator);
-        System.out.print(greetingMessage);
-        System.out.print(actionPrompt);
-        System.out.print(lineSeparator);
-        System.out.print(farewellMessage);
-        System.out.print(lineSeparator);
+
+        System.out.println(lineSeparator);
+        System.out.println(greetingMessage);
+        System.out.println(actionPrompt);
+        System.out.println(lineSeparator);
+
+        while (true) {
+            String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("bye")) {
+                System.out.println(lineSeparator);
+                System.out.println(" Bye. Hope to see you again soon!");
+                System.out.println(lineSeparator);
+                break;
+            }
+
+
+            System.out.println(lineSeparator);
+            System.out.println(" " + input);
+            System.out.println(lineSeparator);
+        }
+
+        scanner.close();
     }
-
 }
