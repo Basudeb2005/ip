@@ -16,7 +16,8 @@ public class VetBuddy {
         System.out.println(lineSeparator);
 
         while (true) {
-            String input = scanner.nextLine().trim();
+            String input = scanner.nextLine().git tag A-CodingStandard
+            trim();
 
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println(lineSeparator);
