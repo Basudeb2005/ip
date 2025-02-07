@@ -1,6 +1,22 @@
 import java.util.Scanner;
 
 public class VetBuddy {
+    private static void printLineSeparator() {
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printTaskAdded(Task task, int taskCount) {
+        printLineSeparator();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        printLineSeparator();
+    }
+
+    private static boolean isValidIndex(int index, int taskCount) {
+        return index >= 0 && index < taskCount;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String lineSeparator = "____________________________________________________________";
@@ -32,43 +48,56 @@ public class VetBuddy {
                 System.out.println(lineSeparator);
             } else if (input.startsWith("mark ")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (index >= 0 && index < taskCount) {
+                if (isValidIndex(index, taskCount)) {
                     tasks[index].markAsDone();
-                    System.out.println(lineSeparator);
+                    printLineSeparator();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[X] " + tasks[index].getDescription());
-                    System.out.println(lineSeparator);
+                    System.out.println(tasks[index].toString());
+                    printLineSeparator();
+                } else {
+                    printLineSeparator();
+                    System.out.println("Invalid task number.");
+                    printLineSeparator();
                 }
+
             } else if (input.startsWith("unmark ")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (index >= 0 && index < taskCount) {
+                if (isValidIndex(index, taskCount)) {
                     tasks[index].markAsNotDone();
-                    System.out.println(lineSeparator);
+                    printLineSeparator();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("[ ] " + tasks[index].getDescription());
-                    System.out.println(lineSeparator);
+                    System.out.println(tasks[index].toString());
+                    printLineSeparator();
+                } else {
+                    printLineSeparator();
+                    System.out.println("Invalid task number.");
+                    printLineSeparator();
                 }
             }  else if (input.startsWith("todo ")) {
                 String description = input.substring(5);
                 tasks[taskCount] = new Todo(description);
                 taskCount++;
-                System.out.println(lineSeparator);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount - 1].toString());
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println(lineSeparator);
+                printTaskAdded(tasks[taskCount - 1], taskCount);
             } else if (input.startsWith("deadline ")) {
+                if (!input.contains(" /by ")) {
+                    printLineSeparator();
+                    System.out.println("Invalid format. Use: deadline <description> /by <date>");
+                    printLineSeparator();
+                    continue;
+                }
                 String[] parts = input.substring(9).split(" /by ");
                 String description = parts[0];
                 String by = parts[1];
                 tasks[taskCount] = new Deadline(description, by);
                 taskCount++;
-                System.out.println(lineSeparator);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount - 1].toString());
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println(lineSeparator);
+                printTaskAdded(tasks[taskCount - 1], taskCount);
             } else if (input.startsWith("event ")) {
+                if (!input.contains(" /from ") || !input.contains(" /to ")) {
+                    printLineSeparator();
+                    System.out.println("Invalid format. Use: event <description> /from <start> /to <end>");
+                    printLineSeparator();
+                    continue;
+                }
                 String[] parts = input.substring(6).split(" /from ");
                 String description = parts[0];
                 String[] timeParts = parts[1].split(" /to ");
@@ -76,19 +105,11 @@ public class VetBuddy {
                 String to = timeParts[1];
                 tasks[taskCount] = new Event(description, from, to);
                 taskCount++;
-                System.out.println(lineSeparator);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount - 1].toString());
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println(lineSeparator);
+                printTaskAdded(tasks[taskCount - 1], taskCount);
             } else {
                 tasks[taskCount] = new Todo(input);
                 taskCount++;
-                System.out.println(lineSeparator);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(tasks[taskCount - 1].toString());
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println(lineSeparator);
+                printTaskAdded(tasks[taskCount - 1], taskCount);
             }
 
 
