@@ -16,8 +16,7 @@ public class VetBuddy {
         System.out.println(lineSeparator);
 
         while (true) {
-            String input = scanner.nextLine().git tag A-CodingStandard
-            trim();
+            String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println(lineSeparator);
@@ -49,13 +48,50 @@ public class VetBuddy {
                     System.out.println("[ ] " + tasks[index].getDescription());
                     System.out.println(lineSeparator);
                 }
-            } else {
-                tasks[taskCount] = new Task(input);
+            }  else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                tasks[taskCount] = new Todo(description);
                 taskCount++;
                 System.out.println(lineSeparator);
-                System.out.println(" added: " + input);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount - 1].toString());
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println(lineSeparator);
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println(lineSeparator);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount - 1].toString());
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println(lineSeparator);
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from ");
+                String description = parts[0];
+                String[] timeParts = parts[1].split(" /to ");
+                String from = timeParts[0];
+                String to = timeParts[1];
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println(lineSeparator);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount - 1].toString());
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println(lineSeparator);
+            } else {
+                tasks[taskCount] = new Todo(input);
+                taskCount++;
+                System.out.println(lineSeparator);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount - 1].toString());
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 System.out.println(lineSeparator);
             }
+
+
         }
         scanner.close();
     }
