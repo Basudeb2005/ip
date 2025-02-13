@@ -32,6 +32,7 @@ public class VetBuddy {
         System.out.println(lineSeparator);
 
         while (true) {
+            try {
             String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("bye")) {
@@ -43,7 +44,7 @@ public class VetBuddy {
                 System.out.println(lineSeparator);
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                    System.out.println((i + 1) + ". " + tasks[i]);
                 }
                 System.out.println(lineSeparator);
             } else if (input.startsWith("mark ")) {
@@ -56,8 +57,7 @@ public class VetBuddy {
                     printLineSeparator();
                 } else {
                     printLineSeparator();
-                    System.out.println("Invalid task number.");
-                    printLineSeparator();
+                    throw new DukeException("Oops!!! That mark number is invalid.");
                 }
 
             } else if (input.startsWith("unmark ")) {
@@ -70,15 +70,17 @@ public class VetBuddy {
                     printLineSeparator();
                 } else {
                     printLineSeparator();
-                    System.out.println("Invalid task number.");
-                    printLineSeparator();
+                    throw new DukeException("Oops!!! That unmark number is invalid.");
                 }
-            }  else if (input.startsWith("todo ")) {
-                String description = input.substring(5);
-                tasks[taskCount] = new Todo(description);
-                taskCount++;
-                printTaskAdded(tasks[taskCount - 1], taskCount);
-            } else if (input.startsWith("deadline ")) {
+            } else if (input.startsWith("todo")) {
+                    String description = input.substring(4).trim();
+                    if (description.isEmpty()) {
+                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    tasks[taskCount] = new Todo(description);
+                    taskCount++;
+                    printTaskAdded(tasks[taskCount - 1], taskCount);
+                }else if (input.startsWith("deadline ")) {
                 if (!input.contains(" /by ")) {
                     printLineSeparator();
                     System.out.println("Invalid format. Use: deadline <description> /by <date>");
@@ -107,13 +109,18 @@ public class VetBuddy {
                 taskCount++;
                 printTaskAdded(tasks[taskCount - 1], taskCount);
             } else {
-                tasks[taskCount] = new Todo(input);
-                taskCount++;
-                printTaskAdded(tasks[taskCount - 1], taskCount);
+
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+
+
+            }
+        }catch(DukeException e){
+                printLineSeparator();
+                System.out.println(e.getMessage());
+                printLineSeparator();
             }
 
-
-        }
+    }
         scanner.close();
     }
 
