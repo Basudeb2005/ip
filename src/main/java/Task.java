@@ -26,5 +26,11 @@ public class Task {
     public String toString() {
         return "[ ] " + description;
     }
+    public String toFileString() {
+        return (this instanceof Todo ? "T" :
+                this instanceof Deadline ? "D" :
+                        this instanceof Event ? "E" : "?")
+                + " | " + (isDone ? "1" : "0") + " | " + description;
+    }
 
 }
