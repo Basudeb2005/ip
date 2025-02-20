@@ -3,14 +3,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VetBuddy {
+    private static List<Task> tasks = new ArrayList<>();
+
     private static void printLineSeparator() {
         System.out.println("____________________________________________________________");
     }
-    private static List<Task> tasks = new ArrayList<>();
+
     private static void printTaskAdded(Task task, int taskCount) {
         printLineSeparator();
         System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
+        System.out.println(task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
         printLineSeparator();
     }
@@ -19,15 +21,11 @@ public class VetBuddy {
         return index >= 0 && index < taskCount;
     }
 
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String lineSeparator = "____________________________________________________________";
         String greetingMessage = " Hello! I'm VetBuddy";
         String actionPrompt = " What can I do for you?";
-
-        private static List<Task> tasks = new ArrayList<>();
-        int taskCount = 0;
 
         System.out.println(lineSeparator);
         System.out.println(greetingMessage);
@@ -46,53 +44,43 @@ public class VetBuddy {
                 } else if (input.equalsIgnoreCase("list")) {
                     System.out.println(lineSeparator);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     System.out.println(lineSeparator);
                 } else if (input.startsWith("mark ")) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (isValidIndex(index, taskCount)) {
-                        tasks[index].markAsDone();
+                    if (isValidIndex(index, tasks.size())) {
+                        tasks.get(index).markAsDone();
                         printLineSeparator();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(tasks[index].toString());
+                        System.out.println(tasks.get(index));
                         printLineSeparator();
                     } else {
                         printLineSeparator();
                         throw new DukeException("Oops!!! That mark number is invalid.");
                     }
-
                 } else if (input.startsWith("unmark ")) {
                     int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                    if (isValidIndex(index, taskCount)) {
-                        tasks[index].markAsNotDone();
+                    if (isValidIndex(index, tasks.size())) {
+                        tasks.get(index).markAsNotDone();
                         printLineSeparator();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(tasks[index].toString());
+                        System.out.println(tasks.get(index));
                         printLineSeparator();
                     } else {
                         printLineSeparator();
                         throw new DukeException("Oops!!! That unmark number is invalid.");
                     }
-
                 } else if (input.startsWith("delete ")) {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                        if (isValidIndex(index, taskCount)) {
-                            Task removedTask = tasks[index];
-                            git tag -a level6 - m "Tag for Level-6: Delete feature implemented"
-                            git push origin master
-                            git push origin level6
-                            for (int i = index; i < taskCount - 1; i++) {
-                                tasks[i] = tasks[i + 1];
-                            }
-                            tasks[taskCount - 1] = null;
-                            taskCount--;
+                        if (isValidIndex(index, tasks.size())) {
+                            Task removedTask = tasks.remove(index);
                             printLineSeparator();
                             System.out.println("Noted. I've removed this task:");
-                            System.out.println(removedTask.toString());
-                            System.out.println("Now you have " + taskCount + " tasks in the list.");
+                            System.out.println(removedTask);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                             printLineSeparator();
                         } else {
                             printLineSeparator();
@@ -103,14 +91,13 @@ public class VetBuddy {
                         System.out.println("Oops!!! Please specify a valid task number to delete.");
                         printLineSeparator();
                     }
-                } else if (input.startsWith("todo")) {
-                    String description = input.substring(4).trim();
+                } else if (input.startsWith("todo ")) {
+                    String description = input.substring(5).trim();
                     if (description.isEmpty()) {
                         throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     }
-                    tasks[taskCount] = new Todo(description);
-                    taskCount++;
-                    printTaskAdded(tasks[taskCount - 1], taskCount);
+                    tasks.add(new Todo(description));
+                    printTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
                 } else if (input.startsWith("deadline ")) {
                     if (!input.contains(" /by ")) {
                         printLineSeparator();
@@ -121,9 +108,8 @@ public class VetBuddy {
                     String[] parts = input.substring(9).split(" /by ");
                     String description = parts[0];
                     String by = parts[1];
-                    tasks[taskCount] = new Deadline(description, by);
-                    taskCount++;
-                    printTaskAdded(tasks[taskCount - 1], taskCount);
+                    tasks.add(new Deadline(description, by));
+                    printTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
                 } else if (input.startsWith("event ")) {
                     if (!input.contains(" /from ") || !input.contains(" /to ")) {
                         printLineSeparator();
@@ -136,24 +122,17 @@ public class VetBuddy {
                     String[] timeParts = parts[1].split(" /to ");
                     String from = timeParts[0];
                     String to = timeParts[1];
-                    tasks[taskCount] = new Event(description, from, to);
-                    taskCount++;
-                    printTaskAdded(tasks[taskCount - 1], taskCount);
+                    tasks.add(new Event(description, from, to));
+                    printTaskAdded(tasks.get(tasks.size() - 1), tasks.size());
                 } else {
-
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-
-
                 }
             } catch (DukeException e) {
                 printLineSeparator();
                 System.out.println(e.getMessage());
                 printLineSeparator();
             }
-
         }
         scanner.close();
     }
-
-
 }
