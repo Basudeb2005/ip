@@ -72,6 +72,32 @@ public class VetBuddy {
                         printLineSeparator();
                         throw new DukeException("Oops!!! That unmark number is invalid.");
                     }
+
+                } else if (input.startsWith("delete ")) {
+                    try {
+                        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                        if (isValidIndex(index, taskCount)) {
+                            Task removedTask = tasks[index];
+                            // Shift tasks left to fill the gap
+                            for (int i = index; i < taskCount - 1; i++) {
+                                tasks[i] = tasks[i + 1];
+                            }
+                            tasks[taskCount - 1] = null;
+                            taskCount--;
+                            printLineSeparator();
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(removedTask.toString());
+                            System.out.println("Now you have " + taskCount + " tasks in the list.");
+                            printLineSeparator();
+                        } else {
+                            printLineSeparator();
+                            throw new DukeException("Oops!!! That delete number is invalid.");
+                        }
+                    } catch (NumberFormatException e) {
+                        printLineSeparator();
+                        System.out.println("Oops!!! Please specify a valid task number to delete.");
+                        printLineSeparator();
+                    }
                 } else if (input.startsWith("todo")) {
                     String description = input.substring(4).trim();
                     if (description.isEmpty()) {
