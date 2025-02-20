@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class VetBuddy {
@@ -17,13 +19,14 @@ public class VetBuddy {
         return index >= 0 && index < taskCount;
     }
 
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String lineSeparator = "____________________________________________________________";
         String greetingMessage = " Hello! I'm VetBuddy";
         String actionPrompt = " What can I do for you?";
 
-        Task[] tasks = new Task[100];
+        private static List<Task> tasks = new ArrayList<>();
         int taskCount = 0;
 
         System.out.println(lineSeparator);
@@ -77,8 +80,9 @@ public class VetBuddy {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
                         if (isValidIndex(index, taskCount)) {
-                            Task removedTask = tasks[index];
-                            // Shift tasks left to fill the gap
+                            Task removedTask = tasks[index];git tag -a level6 -m "Tag for Level-6: Delete feature implemented"
+                            git push origin master
+                            git push origin level6
                             for (int i = index; i < taskCount - 1; i++) {
                                 tasks[i] = tasks[i + 1];
                             }
