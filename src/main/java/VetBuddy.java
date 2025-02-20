@@ -6,7 +6,7 @@ public class VetBuddy {
     private static void printLineSeparator() {
         System.out.println("____________________________________________________________");
     }
-
+    private static List<Task> tasks = new ArrayList<>();
     private static void printTaskAdded(Task task, int taskCount) {
         printLineSeparator();
         System.out.println("Got it. I've added this task:");
@@ -80,7 +80,8 @@ public class VetBuddy {
                     try {
                         int index = Integer.parseInt(input.split(" ")[1]) - 1;
                         if (isValidIndex(index, taskCount)) {
-                            Task removedTask = tasks[index];git tag -a level6 -m "Tag for Level-6: Delete feature implemented"
+                            Task removedTask = tasks[index];
+                            git tag -a level6 - m "Tag for Level-6: Delete feature implemented"
                             git push origin master
                             git push origin level6
                             for (int i = index; i < taskCount - 1; i++) {
