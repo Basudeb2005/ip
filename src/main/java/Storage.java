@@ -6,13 +6,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Manages reading and writing tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a Storage object to handle tasks from the specified file path.
+     *
+     * @param filePath Path to the tasks file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file. Returns an empty list if no file exists or errors occur.
+     *
+     * @return A list of Task objects loaded from the file.
+     */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);

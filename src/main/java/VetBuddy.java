@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Manages user interaction, tasks, and storage for VetBuddy.
+ */
 public class VetBuddy {
     private Ui ui;
     private Storage storage;
@@ -11,6 +14,9 @@ public class VetBuddy {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Continuously reads and processes user commands until "bye" is entered.
+     */
     public void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
@@ -69,6 +75,11 @@ public class VetBuddy {
         scanner.close();
     }
 
+    /**
+     * Entry point of VetBuddy.
+     *
+     * @param args Not used.
+     */
     public static void main(String[] args) {
         new VetBuddy("data/duke.txt").run();
     }

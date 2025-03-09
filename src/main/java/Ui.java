@@ -1,8 +1,14 @@
+/**
+ * Handles user interaction by reading commands and printing output.
+ */
 public class Ui {
     public void showLine() {
         System.out.println("=================================================");
     }
 
+    /**
+     * Greets the user.
+     */
     public void showWelcome() {
         System.out.println();
         showLine();
@@ -11,6 +17,11 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Reads a single trimmed line of user input.
+     *
+     * @return The user's command.
+     */
     public String readCommand() {
         return new java.util.Scanner(System.in).nextLine().trim();
     }
@@ -21,6 +32,11 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Shows all tasks in the list.
+     *
+     * @param tasks The TaskList containing tasks.
+     */
     public void showList(TaskList tasks) {
         showLine();
         System.out.println("Here are the tasks in your list:");
@@ -72,6 +88,12 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Lists tasks that match a given keyword.
+     *
+     * @param matchedTasks Array of matching tasks.
+     * @return Formatted result string.
+     */
     public String showFindResults(Task[] matchedTasks) {
         if (matchedTasks.length == 0) {
             return "____________________________________________________________\n No matching tasks found.\n____________________________________________________________\n";
