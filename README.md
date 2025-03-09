@@ -1,26 +1,129 @@
-# VetBuddy project template
+# VetBuddy User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to **VetBuddy**, your personal assistant for managing tasks efficiently. This guide will help you get started quickly.
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## **Getting Started**
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/VetBuddy.java` file, right-click it, and choose `Run VetBuddy.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### **Running VetBuddy from a JAR File**
+If you want to run VetBuddy from the source code, follow these steps:
+
+**Prerequisites:**  
+- JDK 17
+  
+**Download & Run VetBuddy**  
+   - Download **VetBuddy.jar** latest version from [GitHub Releases](https://github.com/Basudeb2005/ip/releases).  
+   - Open a terminal or command prompt and navigate to the download location.
+   - Run:
+     ```sh
+     java -jar VetBuddy.jar
+     ```
+
+---
+
+## **Features and Commands**
+
+VetBuddy helps manage your tasks with simple commands.
+
+### **1. Adding Tasks**
+- **Todo**: Adds a basic task.  
+  ```
+  todo <task description>
+  ```
+  Example:  
+  ```
+  todo Buy groceries
+  ```
+
+- **Deadline**: Adds a task with a deadline.  
+  ```
+  deadline <task description> /by <date/time>
+  ```
+  Example:  
+  ```
+  deadline Finish report /by Monday 5pm
+  ```
+
+- **Event**: Adds an event with a start and end time.  
+  ```
+  event <task description> /from <start time> /to <end time>
+  ```
+  Example:  
+  ```
+  event Team meeting /from 2pm /to 4pm
+  ```
+
+---
+
+### **2. Managing Tasks**
+- **List all tasks**:  
+  ```
+  list
+  ```
+  Example output:
+  ```
+  Here are the tasks in your list:
+  1. [T][ ] Buy groceries
+  2. [D][ ] Finish report (by: Monday 5pm)
+  3. [E][ ] Team meeting (from: 2pm to: 4pm)
+  ```
+
+- **Mark a task as done**:  
+  ```
+  mark <task number>
+  ```
+  Example:  
+  ```
+  mark 2
+  ```
+
+- **Unmark a task**:  
+  ```
+  unmark <task number>
+  ```
+  Example:  
+  ```
+  unmark 2
+  ```
+
+- **Delete a task**:  
+  ```
+  delete <task number>
+  ```
+  Example:  
+  ```
+  delete 3
+  ```
+
+---
+
+### **3. Finding Tasks**
+- **Search for tasks by keyword**:  
+  ```
+  find <keyword>
+  ```
+  Example:  
+  ```
+  find meeting
+  ```
+
+---
+
+### **4. Exiting**
+- **Quit the application**:  
+  ```
+  bye
+  ```
+  Example output:
+  ```
+  =================================================
+  Bye. Hope to see you again soon!
+  =================================================
+  ```
+---
+
+## **Conclusion**
+VetBuddy helps you stay organized with simple commands to manage your tasks effectively. Try it out today and simplify your workflow!
+
