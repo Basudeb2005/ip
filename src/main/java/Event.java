@@ -1,6 +1,6 @@
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private String from;
+    private String to;
 
     public Event(String description, String from, String to) {
         super(description);
@@ -9,13 +9,12 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[E]" + (isDone ? "[X] " : "[ ] ") + getDescription() + " (from: " + from + " to: " + to + ")";
-    }
-
-    @Override
     public String toFileString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
-}
 
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+}

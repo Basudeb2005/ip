@@ -24,7 +24,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        return "[ ] " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
     public String toFileString() {
         return (this instanceof Todo ? "T" :
