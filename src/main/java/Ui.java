@@ -71,4 +71,18 @@ public class Ui {
         System.out.println(msg);
         showLine();
     }
+
+    public String showFindResults(Task[] matchedTasks) {
+        if (matchedTasks.length == 0) {
+            return "____________________________________________________________\n No matching tasks found.\n____________________________________________________________\n";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
+        sb.append(" Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchedTasks.length; i++) {
+            sb.append((i + 1) + "." + matchedTasks[i].toString() + "\n");
+        }
+        sb.append("____________________________________________________________\n");
+        return sb.toString();
+    }
 }

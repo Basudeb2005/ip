@@ -55,6 +55,10 @@ public class VetBuddy {
                     tasks.add(t);
                     ui.showAdded(t, tasks.size());
                     storage.save(tasks.getAll());
+                } else if (Parser.isFind(input)) {
+                    String keyword = Parser.getFindKeyword(input);
+                    Task[] foundTasks = tasks.findTasks(keyword);
+                    System.out.println(ui.showFindResults(foundTasks));
                 } else {
                     ui.showUnknown();
                 }

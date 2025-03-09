@@ -31,6 +31,10 @@ public class Parser {
         return input.startsWith("event ");
     }
 
+    public static boolean isFind(String input) {
+        return input.startsWith("find ");
+    }
+
     public static int getIndex(String input) {
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
@@ -50,5 +54,18 @@ public class Parser {
         String desc = parts[0];
         String[] timeParts = parts[1].split(" /to ", 2);
         return new String[] { desc, timeParts[0], timeParts[1] };
+    }
+
+    public static String[] parseInput(String input) {
+        String[] split = input.trim().split(" ", 2);
+        if (split.length == 1) {
+            return new String[]{split[0], ""};
+        } else {
+            return new String[]{split[0], split[1].trim()};
+        }
+    }
+
+    public static String getFindKeyword(String input) {
+        return input.substring(5).trim();
     }
 }
